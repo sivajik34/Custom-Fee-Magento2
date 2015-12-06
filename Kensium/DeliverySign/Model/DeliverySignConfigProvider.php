@@ -22,9 +22,11 @@ class DeliverySignConfigProvider implements ConfigProviderInterface
      */
     public function getConfig()
     {
-        $showHide = [];
+        $deliverySignConfig = [];
         $enabled = $this->scopeConfiguration->getValue('deliverysign/deliverysign/status', ScopeInterface::SCOPE_STORE);
-        $showHide['show_hide_custom_block'] = ($enabled)?true:false;
-        return $showHide;
+        $deliverySignConfig['minimum_order_amount'] = $this->scopeConfiguration->getValue('deliverysign/deliverysign/minimum_order_amount', ScopeInterface::SCOPE_STORE);
+        $deliverySignConfig['delivery_sign_amount'] = $this->scopeConfiguration->getValue('deliverysign/deliverysign/deliverysign_amount', ScopeInterface::SCOPE_STORE);
+        $deliverySignConfig['show_hide_deliverysign_block'] = ($enabled)?true:false;
+        return $deliverySignConfig;
     }
 }
