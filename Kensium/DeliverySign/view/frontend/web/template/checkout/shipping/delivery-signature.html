@@ -1,3 +1,7 @@
- <div data-bind="visible: canVisibleDeliverySignBlock">
-<input type="checkbox" name="delivery-signature" value="delivery-signature"> <span class="price"><span data-bind="text: getFormattedPrice(delivery-signature)" class="price">$5.00</span></span>Delivery Signature<br>
+<div data-bind="visible: canVisibleDeliverySignBlock">
+    <input type="checkbox" name="delivery-signature" value="delivery-signature"/>
+    <span data-bind="text: getFormattedPrice()" class="price" style="font-weight: 600"></span>
+
+    <span>Delivery Signature</span>
+
 </div>

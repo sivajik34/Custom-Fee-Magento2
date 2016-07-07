@@ -111,8 +111,8 @@ class Fee extends \Magento\Framework\View\Element\Template
             [
                 'code' => 'fee',
                 'strong' => false,
-                'value' => 100,
-                //'value' => $this->_source->getFee(),
+                //'value' => 1090,
+                'value' => $this->_source->getDataByKey('fee'),
                 'label' => __('Fee'),
             ]
         );
