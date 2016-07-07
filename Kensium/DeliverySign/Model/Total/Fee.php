@@ -4,10 +4,15 @@
  * See COPYING.txt for license details.
  */
 namespace Kensium\DeliverySign\Model\Total;
-
+use Magento\Store\Model\ScopeInterface;
 
 class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 {
+    /**
+     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     */
+    protected $scopeConfiguration;
+
     /**
      * Collect grand total address amount
      *
@@ -18,9 +23,10 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     protected $quoteValidator = null;
 
-    public function __construct(\Magento\Quote\Model\QuoteValidator $quoteValidator)
+    public function __construct(\Magento\Quote\Model\QuoteValidator $quoteValidator, \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfiguration)
     {
         $this->quoteValidator = $quoteValidator;
+        $this->scopeConfiguration = $scopeConfiguration;
     }
 
     public function collect(
@@ -32,8 +38,9 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         parent::collect($quote, $shippingAssignment, $total);
 
 
-        $exist_amount = 0; //$quote->getFee(); 
-        $fee = 100; //Excellence_Fee_Model_Fee::getFee();
+        $exist_amount = 0; //$quote->getFee();
+        $fee = $this->scopeConfiguration->getValue('deliverysign/deliverysign/deliverysign_amount', ScopeInterface::SCOPE_STORE);
+
         $balance = $fee - $exist_amount;
 
         $total->setTotalAmount('fee', $balance);
@@ -49,7 +56,10 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         return $this;
     }
 
-    protected function clearValues(Address\Total $total)
+    /**
+     * @param \Magento\Quote\Model\Quote\Address\Total $total
+     */
+    protected function clearValues(\Magento\Quote\Model\Quote\Address\Total $total)
     {
         $total->setTotalAmount('subtotal', 0);
         $total->setBaseTotalAmount('subtotal', 0);
@@ -62,25 +72,19 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $total->setSubtotalInclTax(0);
         $total->setBaseSubtotalInclTax(0);
     }
+
     /**
      * @param \Magento\Quote\Model\Quote $quote
-     * @param Address\Total $total
-     * @return array|null
-     */
-    /**
-     * Assign subtotal amount and label to address object
-     *
-     * @param \Magento\Quote\Model\Quote $quote
-     * @param Address\Total $total
+     * @param \Magento\Quote\Model\Quote\Address\Total $total
      * @return array
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function fetch(\Magento\Quote\Model\Quote $quote, \Magento\Quote\Model\Quote\Address\Total $total)
     {
+        $fee = $this->scopeConfiguration->getValue('deliverysign/deliverysign/deliverysign_amount', ScopeInterface::SCOPE_STORE);
         return [
             'code' => 'fee',
-            'title' => 'Fee',
-            'value' => 100
+            'title' => 'Delivery Sign Fee',
+            'value' => $fee
         ];
     }
 
@@ -91,6 +95,6 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     public function getLabel()
     {
-        return __('Fee');
+        return __('Delivery Sign Fee');
     }
 }

@@ -27,12 +27,12 @@
                        showInWebsite="1" showInStore="1">
                     <label>Minimum Order Amount To Display</label>
                     <comment><![CDATA[Greaterthan or equal to]]></comment>
-
+                    <validate>validate-number validate-zero-or-greater</validate>
                 </field>
                 <field id="deliverysign_amount" translate="label comment" type="text" sortOrder="700" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Delivery Signature Amount</label>
-
+                    <validate>validate-number validate-zero-or-greater</validate>
                 </field>
             </group>
 

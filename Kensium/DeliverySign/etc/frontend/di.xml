@@ -4,9 +4,7 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="checkout_deliverysign_block" xsi:type="object">
-                    Kensium\DeliverySign\Model\DeliverySignConfigProvider
-                </item>
+                <item name="checkout_deliverysign_block" xsi:type="object">Kensium\DeliverySign\Model\DeliverySignConfigProvider</item>
             </argument>
         </arguments>
     </type>
