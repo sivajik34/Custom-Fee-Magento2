@@ -113,7 +113,7 @@ class Fee extends \Magento\Framework\View\Element\Template
                 'strong' => false,
                 //'value' => 1090,
                 'value' => $this->_source->getDataByKey('fee'),
-                'label' => __('Fee'),
+                'label' => __('Delivery Sign Fee'),
             ]
         );
 

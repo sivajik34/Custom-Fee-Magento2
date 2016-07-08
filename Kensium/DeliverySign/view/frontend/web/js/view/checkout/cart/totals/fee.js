@@ -1,23 +1,25 @@
-/**
- * Copyright © 2015 Magento. All rights reserved.
- * See COPYING.txt for license details.
- */
-define(
-    [
-        'Kensium_DeliverySign/js/view/checkout/summary/fee'
-    ],
-    function (Component) {
+define([
+        'ko',
+        'uiComponent',
+        'Magento_Checkout/js/model/quote',
+        'Magento_Catalog/js/price-utils','Kensium_DeliverySign/js/view/checkout/summary/fee'
+
+    ], function (ko, Component, quote, priceUtils) {
         'use strict';
-
+        var show_hide_deliverysign_blockConfig = window.checkoutConfig.show_hide_deliverysign_block;
+        var minimum_order_amount = window.checkoutConfig.minimum_order_amount;
+        var delivery_sign_amount = window.checkoutConfig.delivery_sign_amount;
+        var totals = quote.getTotals()();
+        var subtotal = 0;
+        if (totals) {
+           subtotal = totals.subtotal;
+        }
+        if(minimum_order_amount>subtotal){
+           show_hide_deliverysign_blockConfig=false;
+         }
         return Component.extend({
-
-            /**
-             * @override
-             */
-            isDisplayed: function () {
-                return true;
-            }
+           
+            canVisibleDeliverySignBlock: show_hide_deliverysign_blockConfig,
+            getFormattedPrice: ko.observable(priceUtils.formatPrice(delivery_sign_amount, quote.getPriceFormat()))
         });
-    }
-);
-
+    });

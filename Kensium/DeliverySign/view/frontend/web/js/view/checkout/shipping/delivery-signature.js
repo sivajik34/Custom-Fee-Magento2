@@ -15,6 +15,10 @@ define([
         if (totals) {
            subtotal = totals.subtotal;
         }
+         if(minimum_order_amount>subtotal){
+           show_hide_deliverysign_blockConfig=false;
+         }
+        
         return Component.extend({
             defaults: {
                 template: 'Kensium_DeliverySign/checkout/shipping/delivery-signature'
