@@ -7,17 +7,8 @@ define([
 
     ], function (ko, Component, quote, priceUtils) {
         'use strict';
-        var show_hide_deliverysign_blockConfig = window.checkoutConfig.show_hide_deliverysign_block;
-        var minimum_order_amount = window.checkoutConfig.minimum_order_amount;
-        var delivery_sign_amount = window.checkoutConfig.delivery_sign_amount;
-        var totals = quote.getTotals()();
-        var subtotal = 0;
-        if (totals) {
-           subtotal = totals.subtotal;
-        }
-         if(minimum_order_amount>subtotal){
-           show_hide_deliverysign_blockConfig=false;
-         }
+        var show_hide_deliverysign_blockConfig = window.checkoutConfig.show_hide_deliverysign_shipblock;        
+        var delivery_sign_amount = window.checkoutConfig.delivery_sign_amount;     
         
         return Component.extend({
             defaults: {
