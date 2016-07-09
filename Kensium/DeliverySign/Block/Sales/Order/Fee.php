@@ -110,17 +110,13 @@ class Fee extends \Magento\Framework\View\Element\Template
         $fee = new \Magento\Framework\DataObject(
             [
                 'code' => 'fee',
-                'strong' => false,
-                //'value' => 1090,
-                'value' => $this->_source->getDataByKey('fee'),
+                'strong' => false,                
+                'value' => $this->_source->getFee(),
                 'label' => __('Delivery Sign Fee'),
             ]
         );
 
-        $parent->addTotal($fee, 'fee');
-        // $this->_addTax('grand_total');
-        $parent->addTotal($fee, 'fee');
-
+        $parent->addTotal($fee, 'fee');     
 
         return $this;
     }

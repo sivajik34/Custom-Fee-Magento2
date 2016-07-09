@@ -37,32 +37,25 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         \Magento\Quote\Model\Quote\Address\Total $total
     )
     {
-        parent::collect($quote, $shippingAssignment, $total);
-        $subtotal = $total->getTotalAmount('subtotal');
-        $this->clearValues($total);
+        parent::collect($quote, $shippingAssignment, $total);               
           if (!count($shippingAssignment->getItems())) {
             return $this;
         }
 
         $enabled = $this->scopeConfiguration->getValue('deliverysign/deliverysign/status', ScopeInterface::SCOPE_STORE);
         $minimumOrderAmount = $this->scopeConfiguration->getValue('deliverysign/deliverysign/minimum_order_amount', ScopeInterface::SCOPE_STORE);
-       
-        if ($enabled && $minimumOrderAmount<=$subtotal) {
-            $exist_amount =0;//$quote->getFee();
-            $fee = $this->scopeConfiguration->getValue('deliverysign/deliverysign/deliverysign_amount', ScopeInterface::SCOPE_STORE);
-
-            $balance = $fee - $exist_amount;
-
-            $total->setTotalAmount('fee', $balance);
-            $total->setBaseTotalAmount('fee', $balance);
-
-            $total->setFee($balance);
-            $total->setBaseFee($balance);
-
-            $total->setGrandTotal($total->getGrandTotal() + $balance);
-            $total->setBaseGrandTotal($total->getBaseGrandTotal() + $balance);
+       $subtotal = $total->getTotalAmount('subtotal');
+        if ($enabled && $minimumOrderAmount<=$subtotal ) {          
+            $fee=$quote->getFee();
+            $total->setTotalAmount('fee', $fee);
+            $total->setBaseTotalAmount('fee', $fee);
+            $total->setFee($fee);
+            $total->setBaseFee($fee);
+            $quote->setFee($fee);
+            $quote->setBaseFee($fee);
+            $total->setGrandTotal($total->getGrandTotal() + $fee);
+            $total->setBaseGrandTotal($total->getBaseGrandTotal() + $fee);       
         }
-
         return $this;
     }
 
@@ -77,7 +70,8 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $enabled = $this->scopeConfiguration->getValue('deliverysign/deliverysign/status', ScopeInterface::SCOPE_STORE);
         $minimumOrderAmount = $this->scopeConfiguration->getValue('deliverysign/deliverysign/minimum_order_amount', ScopeInterface::SCOPE_STORE);
         $subtotal = $quote->getSubtotal();
-        if ($enabled && $minimumOrderAmount<=$subtotal) {
+        $fee=$quote->getFee();
+        if ($enabled && $minimumOrderAmount<=$subtotal && $fee) {
         $fee = $this->scopeConfiguration->getValue('deliverysign/deliverysign/deliverysign_amount', ScopeInterface::SCOPE_STORE);
         return [
             'code' => 'fee',
