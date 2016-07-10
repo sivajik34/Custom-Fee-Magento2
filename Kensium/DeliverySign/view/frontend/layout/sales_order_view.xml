@@ -9,7 +9,7 @@
 
     <body>        
         <referenceContainer name="order_totals">
-            <block class="Kensium\DeliverySign\Block\Sales\Order\Fee" name="fee"/>
+            <block class="Kensium\DeliverySign\Block\Sales\Totals\Fee" name="fee"/>
         </referenceContainer>
     </body>
 </page>

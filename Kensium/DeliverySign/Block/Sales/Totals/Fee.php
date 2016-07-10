@@ -4,21 +4,12 @@
  * See COPYING.txt for license details.
  */
 
-/**
- * Tax totals modification block. Can be used just as subblock of \Magento\Sales\Block\Order\Totals
- */
-namespace Kensium\DeliverySign\Block\Sales\Order;
+
+namespace Kensium\DeliverySign\Block\Sales\Totals;
 
 
 class Fee extends \Magento\Framework\View\Element\Template
 {
-    /**
-     * Tax configuration model
-     *
-     * @var \Magento\Tax\Model\Config
-     */
-    protected $_config;
-
     /**
      * @var Order
      */
@@ -30,17 +21,15 @@ class Fee extends \Magento\Framework\View\Element\Template
     protected $_source;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magento\Tax\Model\Config $taxConfig
+     * @param \Magento\Framework\View\Element\Template\Context $context     
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-        \Magento\Tax\Model\Config $taxConfig,
-        array $data = []
+                array $data = []
     )
     {
-        $this->_config = $taxConfig;
+       
         parent::__construct($context, $data);
     }
 
@@ -100,11 +89,9 @@ class Fee extends \Magento\Framework\View\Element\Template
      */
     public function initTotals()
     {
-
         $parent = $this->getParentBlock();
         $this->_order = $parent->getOrder();
         $this->_source = $parent->getSource();
-
         $store = $this->getStore();
 
         $fee = new \Magento\Framework\DataObject(
