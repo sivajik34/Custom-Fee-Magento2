@@ -21,15 +21,15 @@ class Fee extends \Magento\Framework\View\Element\Template
     protected $_source;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context     
+     * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
-                array $data = []
+        array $data = []
     )
     {
-       
+
         parent::__construct($context, $data);
     }
 
@@ -83,27 +83,25 @@ class Fee extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Initialize all order totals relates with tax
-     *
-     * @return \Magento\Tax\Block\Sales\Order\Tax
+     * @return $this
      */
     public function initTotals()
     {
         $parent = $this->getParentBlock();
         $this->_order = $parent->getOrder();
         $this->_source = $parent->getSource();
-        $store = $this->getStore();
+       // $store = $this->getStore();
 
         $fee = new \Magento\Framework\DataObject(
             [
                 'code' => 'fee',
-                'strong' => false,                
+                'strong' => false,
                 'value' => $this->_source->getFee(),
                 'label' => __('Delivery Sign Fee'),
             ]
         );
 
-        $parent->addTotal($fee, 'fee');     
+        $parent->addTotal($fee, 'fee');
 
         return $this;
     }

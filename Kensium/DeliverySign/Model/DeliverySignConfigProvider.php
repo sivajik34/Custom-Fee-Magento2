@@ -11,13 +11,20 @@ class DeliverySignConfigProvider implements ConfigProviderInterface
      */
     protected $scopeConfiguration;
 
+    /**
+     * @var \Magento\Checkout\Model\Session
+     */
     protected $checkoutSession;
- 
+
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
     protected $logger;
 
     /**
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfiguration
-     * @codeCoverageIgnore
+     * @param \Magento\Checkout\Model\Session $checkoutSession
+     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfiguration,
@@ -27,24 +34,24 @@ class DeliverySignConfigProvider implements ConfigProviderInterface
     )
     {
         $this->scopeConfiguration = $scopeConfiguration;
-        $this->checkoutSession=$checkoutSession;
-        $this->logger=$logger;
+        $this->checkoutSession = $checkoutSession;
+        $this->logger = $logger;
     }
 
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function getConfig()
     {
         $deliverySignConfig = [];
         $enabled = $this->scopeConfiguration->getValue('deliverysign/deliverysign/status', ScopeInterface::SCOPE_STORE);
         $minimumOrderAmount = $this->scopeConfiguration->getValue('deliverysign/deliverysign/minimum_order_amount', ScopeInterface::SCOPE_STORE);
-        $quote=$this->checkoutSession->getQuote();
-        $subtotal=$quote->getSubtotal();
+        $quote = $this->checkoutSession->getQuote();
+        $subtotal = $quote->getSubtotal();
         $this->logger->addDebug($subtotal);
         $deliverySignConfig['delivery_sign_amount'] = $this->scopeConfiguration->getValue('deliverysign/deliverysign/deliverysign_amount', ScopeInterface::SCOPE_STORE);
-        $deliverySignConfig['show_hide_deliverysign_block'] = ($enabled && ($minimumOrderAmount<$subtotal) && $quote->getFee()) ? true : false;
-        $deliverySignConfig['show_hide_deliverysign_shipblock'] = ($enabled && ($minimumOrderAmount<$subtotal)) ? true : false;
+        $deliverySignConfig['show_hide_deliverysign_block'] = ($enabled && ($minimumOrderAmount <= $subtotal) && $quote->getFee()) ? true : false;
+        $deliverySignConfig['show_hide_deliverysign_shipblock'] = ($enabled && ($minimumOrderAmount <= $subtotal)) ? true : false;
         return $deliverySignConfig;
     }
 }

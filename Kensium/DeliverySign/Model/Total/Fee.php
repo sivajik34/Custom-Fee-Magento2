@@ -9,7 +9,7 @@ use Magento\Store\Model\ScopeInterface;
 
 class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
 {
-    
+
     protected $helperData;
 
     /**
@@ -35,16 +35,16 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         \Magento\Quote\Model\Quote\Address\Total $total
     )
     {
-        parent::collect($quote, $shippingAssignment, $total);               
-          if (!count($shippingAssignment->getItems())) {
+        parent::collect($quote, $shippingAssignment, $total);
+        if (!count($shippingAssignment->getItems())) {
             return $this;
         }
 
         $enabled = $this->helperData->isModuleEnabled();
         $minimumOrderAmount = $this->helperData->getMinimumOrderAmount();
         $subtotal = $total->getTotalAmount('subtotal');
-        if ($enabled && $minimumOrderAmount<=$subtotal ) {          
-            $fee=$quote->getFee();
+        if ($enabled && $minimumOrderAmount <= $subtotal) {
+            $fee = $quote->getFee();
             $total->setTotalAmount('fee', $fee);
             $total->setBaseTotalAmount('fee', $fee);
             $total->setFee($fee);
@@ -52,7 +52,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
             $quote->setFee($fee);
             $quote->setBaseFee($fee);
             $total->setGrandTotal($total->getGrandTotal() + $fee);
-            $total->setBaseGrandTotal($total->getBaseGrandTotal() + $fee);       
+            $total->setBaseGrandTotal($total->getBaseGrandTotal() + $fee);
         }
         return $this;
     }
@@ -68,14 +68,14 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $enabled = $this->helperData->isModuleEnabled();
         $minimumOrderAmount = $this->helperData->getMinimumOrderAmount();
         $subtotal = $quote->getSubtotal();
-        $fee=$quote->getFee();
-        if ($enabled && $minimumOrderAmount<=$subtotal && $fee) {        
-        return [
-            'code' => 'fee',
-            'title' => 'Delivery Sign Fee',
-            'value' => $fee
-        ];
-        }else {
+        $fee = $quote->getFee();
+        if ($enabled && $minimumOrderAmount <= $subtotal && $fee) {
+            return [
+                'code' => 'fee',
+                'title' => 'Delivery Sign Fee',
+                'value' => $fee
+            ];
+        } else {
             return array();
         }
     }
@@ -95,19 +95,19 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     protected function clearValues(\Magento\Quote\Model\Quote\Address\Total $total)
     {
-        $enabled = $this->helperData->isModuleEnabled();
-        $minimumOrderAmount = $this->helperData->getMinimumOrderAmount();
-        $subtotal = $total->getTotalAmount('subtotal');
-            $total->setTotalAmount('subtotal', 0);
-            $total->setBaseTotalAmount('subtotal', 0);
-            $total->setTotalAmount('tax', 0);
-            $total->setBaseTotalAmount('tax', 0);
-            $total->setTotalAmount('discount_tax_compensation', 0);
-            $total->setBaseTotalAmount('discount_tax_compensation', 0);
-            $total->setTotalAmount('shipping_discount_tax_compensation', 0);
-            $total->setBaseTotalAmount('shipping_discount_tax_compensation', 0);
-            $total->setSubtotalInclTax(0);
-            $total->setBaseSubtotalInclTax(0);
+       // $enabled = $this->helperData->isModuleEnabled();
+       // $minimumOrderAmount = $this->helperData->getMinimumOrderAmount();
+       // $subtotal = $total->getTotalAmount('subtotal');
+        $total->setTotalAmount('subtotal', 0);
+        $total->setBaseTotalAmount('subtotal', 0);
+        $total->setTotalAmount('tax', 0);
+        $total->setBaseTotalAmount('tax', 0);
+        $total->setTotalAmount('discount_tax_compensation', 0);
+        $total->setBaseTotalAmount('discount_tax_compensation', 0);
+        $total->setTotalAmount('shipping_discount_tax_compensation', 0);
+        $total->setBaseTotalAmount('shipping_discount_tax_compensation', 0);
+        $total->setSubtotalInclTax(0);
+        $total->setBaseSubtotalInclTax(0);
 
     }
 }

@@ -5,4 +5,14 @@
             <item name="fee" instance="Kensium\DeliverySign\Model\Total\Fee" sort_order="150"/>
         </group>
     </section>
+ <section name="order_invoice">
+        <group name="totals">
+            <item name="fee" instance="Kensium\DeliverySign\Model\Invoice\Total\Fee" sort_order="160"/>
+        </group>
+    </section>
+ <section name="order_creditmemo">
+        <group name="totals">
+            <item name="fee" instance="Kensium\DeliverySign\Model\Creditmemo\Total\Fee" sort_order="160"/>
+        </group>
+    </section>
 </config>
