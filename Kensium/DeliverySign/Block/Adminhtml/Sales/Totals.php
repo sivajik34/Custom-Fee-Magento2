@@ -67,14 +67,14 @@ class Totals extends \Magento\Framework\View\Element\Template
         $this->getOrder();
         $this->getSource();
 
-        if(!$this->getSource()->getPaymentCharge()) {
+        if(!$this->getSource()->getFee()) {
             return $this;
         }
         $total = new \Magento\Framework\DataObject(
             [
                 'code' => 'fee',
                 'value' => $this->getSource()->getFee(),
-                'label' => __('Surcharge'),
+                'label' => __('Delivery Sign Fee'),
             ]
         );
         $this->getParentBlock()->addTotalBefore($total, 'grand_total');
