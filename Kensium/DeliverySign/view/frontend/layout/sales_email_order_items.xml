@@ -4,7 +4,7 @@
       label="Email Order Items List" design_abstraction="custom">
     <body>
         <referenceBlock name="order_totals">
-            <block class="Kensium\DeliverySign\Block\Sales\Totals" name="payment_charge" as="payment_charge"/>
+            <block class="Kensium\DeliverySign\Block\Sales\Totals\Fee" name="fee" as="fee"/>
         </referenceBlock>
     </body>
 </page>

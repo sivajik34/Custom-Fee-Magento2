@@ -2,6 +2,6 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Creditmemo Items List" design_abstraction="custom">
     <referenceBlock name="invoice_totals">
-        <block class="Kensium\DeliverySign\Block\Sales\Totals" name="payment_charge" as="payment_charge"/>
+        <block class="Kensium\DeliverySign\Block\Sales\Totals\Fee" name="fee" as="fee"/>
     </referenceBlock>
 </page>
