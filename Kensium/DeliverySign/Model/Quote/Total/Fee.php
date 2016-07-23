@@ -45,6 +45,8 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $subtotal = $total->getTotalAmount('subtotal');
         if ($enabled && $minimumOrderAmount <= $subtotal) {
             $fee = $quote->getFee();
+            //Try to test with sample value
+            //$fee=50;
             $total->setTotalAmount('fee', $fee);
             $total->setBaseTotalAmount('fee', $fee);
             $total->setFee($fee);
@@ -69,15 +71,16 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         $minimumOrderAmount = $this->helperData->getMinimumOrderAmount();
         $subtotal = $quote->getSubtotal();
         $fee = $quote->getFee();
-        if ($enabled && $minimumOrderAmount <= $subtotal && $fee) {
-            return [
+
+        $result = [];
+        if ($enabled && ($minimumOrderAmount <= $subtotal) && $fee) {
+            $result = [
                 'code' => 'fee',
                 'title' => 'Delivery Sign Fee',
                 'value' => $fee
             ];
-        } else {
-            return array();
         }
+        return $result;
     }
 
     /**
@@ -95,9 +98,9 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     protected function clearValues(\Magento\Quote\Model\Quote\Address\Total $total)
     {
-       // $enabled = $this->helperData->isModuleEnabled();
-       // $minimumOrderAmount = $this->helperData->getMinimumOrderAmount();
-       // $subtotal = $total->getTotalAmount('subtotal');
+        // $enabled = $this->helperData->isModuleEnabled();
+        // $minimumOrderAmount = $this->helperData->getMinimumOrderAmount();
+        // $subtotal = $total->getTotalAmount('subtotal');
         $total->setTotalAmount('subtotal', 0);
         $total->setBaseTotalAmount('subtotal', 0);
         $total->setTotalAmount('tax', 0);
