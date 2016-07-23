@@ -61,7 +61,7 @@ class Totals extends \Magento\Framework\View\Element\Template
                 'code' => 'fee',
                 'strong' => false,
                 'value' => $this->getSource()->getFee(),
-                'label' => __('Surcharge Fee'),
+                'label' => __('Delivery Sign Fee Fee'),
             ]
         );
 
