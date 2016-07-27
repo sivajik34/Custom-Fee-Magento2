@@ -21,10 +21,10 @@ define([
         },
         getValue: function() {
             var price = 0;
-            if (this.totals()) {
+            if (this.totals() && totals.getSegment('fee')) {
                 price = totals.getSegment('fee').value;
             }
-            return this.getFormattedPrice(price);
+            return price;
         }
     });
 });
