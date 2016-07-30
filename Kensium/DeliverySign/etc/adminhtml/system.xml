@@ -23,6 +23,10 @@
                     <label>Status</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="name" translate="label comment" type="text" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Fee Name</label>                 
+                </field>
                 <field id="minimum_order_amount" translate="label comment" type="text" sortOrder="600" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Minimum Order Amount To Display</label>

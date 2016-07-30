@@ -4,6 +4,12 @@ namespace Kensium\DeliverySign\Block\Adminhtml\Sales\Order\Invoice;
 
 class Totals extends \Magento\Framework\View\Element\Template
 {
+
+    /**
+     * @var \Kensium\DeliverySign\Helper\Data
+     */
+    protected $_dataHelper;
+
     /**
      * Order invoice
      *
@@ -23,8 +29,10 @@ class Totals extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+            \Kensium\DeliverySign\Helper\Data $dataHelper,
         array $data = []
     ) {
+        $this->_dataHelper = $dataHelper;
         parent::__construct($context, $data);
     }
 
@@ -60,7 +68,7 @@ class Totals extends \Magento\Framework\View\Element\Template
             [
                 'code' => 'fee',
                 'value' => $this->getSource()->getFee(),
-                'label' => __('Delivery Sign Fee'),
+                'label' => $this->_dataHelper->getFeeLabel(),
             ]
         );
 

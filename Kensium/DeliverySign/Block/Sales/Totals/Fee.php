@@ -11,6 +11,11 @@ namespace Kensium\DeliverySign\Block\Sales\Totals;
 class Fee extends \Magento\Framework\View\Element\Template
 {
     /**
+     * @var \Kensium\DeliverySign\Helper\Data
+     */
+    protected $_dataHelper;
+
+    /**
      * @var Order
      */
     protected $_order;
@@ -26,10 +31,11 @@ class Fee extends \Magento\Framework\View\Element\Template
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+         \Kensium\DeliverySign\Helper\Data $dataHelper,
         array $data = []
     )
     {
-
+        $this->_dataHelper = $dataHelper;
         parent::__construct($context, $data);
     }
 
@@ -97,7 +103,7 @@ class Fee extends \Magento\Framework\View\Element\Template
                 'code' => 'fee',
                 'strong' => false,
                 'value' => $this->_source->getFee(),
-                'label' => __('Delivery Sign Fee'),
+                'label' => $this->_dataHelper->getFeeLabel(),
             ]
         );
 

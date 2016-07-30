@@ -17,14 +17,21 @@ class Totals extends \Magento\Framework\View\Element\Template
     protected $_source;
 
     /**
+     * @var \Kensium\DeliverySign\Helper\Data
+     */
+    protected $_dataHelper;
+
+    /**
      * OrderFee constructor.
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param array $data
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
+         \Kensium\DeliverySign\Helper\Data $dataHelper,
         array $data = []
     ) {
+        $this->_dataHelper = $dataHelper;
         parent::__construct($context, $data);
     }
 
@@ -61,7 +68,7 @@ class Totals extends \Magento\Framework\View\Element\Template
                 'code' => 'fee',
                 'strong' => false,
                 'value' => $this->getSource()->getFee(),
-                'label' => __('Delivery Sign Fee Fee'),
+                'label' => $this->_dataHelper->getFeeLabel(),
             ]
         );
 

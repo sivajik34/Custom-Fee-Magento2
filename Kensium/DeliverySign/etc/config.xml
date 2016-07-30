@@ -6,5 +6,10 @@
                 <status>1</status>
             </deliverysign>
         </deliverysign>
+        <deliverysign>
+            <deliverysign>
+                <name>Insurance Fee</name>
+            </deliverysign>
+        </deliverysign>
     </default>
 </config>

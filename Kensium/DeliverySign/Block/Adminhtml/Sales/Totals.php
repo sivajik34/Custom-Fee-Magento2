@@ -9,10 +9,7 @@ class Totals extends \Magento\Framework\View\Element\Template
      * @var \Kensium\DeliverySign\Helper\Data
      */
     protected $_dataHelper;
-    /**
-     * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param array $data
-     */
+   
 
     /**
      * @var \Magento\Directory\Model\Currency
@@ -74,7 +71,7 @@ class Totals extends \Magento\Framework\View\Element\Template
             [
                 'code' => 'fee',
                 'value' => $this->getSource()->getFee(),
-                'label' => __('Delivery Sign Fee'),
+                'label' => $this->_dataHelper->getFeeLabel(),
             ]
         );
         $this->getParentBlock()->addTotalBefore($total, 'grand_total');

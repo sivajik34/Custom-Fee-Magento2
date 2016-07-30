@@ -5,8 +5,8 @@
  */
 -->
 <!-- ko if: isDisplayed() -->
-<tr class="totals fee excl" data-bind="visible: canVisibleDeliverySignBlock">
-    <th class="mark" colspan="1" scope="row" data-bind="text: title"></th>
+<tr class="totals fee excl" >
+    <th class="mark" colspan="1" scope="row" data-bind="text: getFeeLabel()"></th>
     <td class="amount">
         <span class="price" data-bind="text: getFormattedPrice()"></span>
     </td>
