@@ -28,9 +28,9 @@ class ShippingInformationManagement
         \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation
     ) {
         $extAttributes = $addressInformation->getExtensionAttributes();
-        $deliverySignature = $extAttributes->getFee();
+        $customFee = $extAttributes->getFee();
         $quote = $this->quoteRepository->getActive($cartId);
-        if($deliverySignature){
+        if($customFee){
         $fee = $this->scopeConfiguration->getValue('customfee/customfee/customfee_amount', ScopeInterface::SCOPE_STORE);
         $quote->setFee($fee);
         } else{

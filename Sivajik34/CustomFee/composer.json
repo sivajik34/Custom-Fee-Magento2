@@ -1,6 +1,6 @@
 {
-  "name": "kensium/customfee",
-  "description": "A Magento 2 module that adds delivery fee at checkout",
+  "name": "sivajik34/customfee",
+  "description": "A Magento 2 module that adds custom fee at checkout",
   "type": "magento2-module",
   "version": "1.0.0",
   "license": [

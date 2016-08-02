@@ -11,31 +11,31 @@
         <section id="customfee" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
                  showInStore="1">
             <class>separator-top</class>
-            <label>Delivery Signature</label>
+            <label>Custom Fee</label>
             <tab>sales</tab>
             <resource>Magento_Catalog::config_catalog</resource>
 
             <group id="customfee" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1"
                    showInStore="1">
-                <label>Delivery Signature Settings</label>
+                <label>Custom Fee Settings</label>
                 <field id="status" translate="label comment" type="select" sortOrder="1" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Status</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="name" translate="label comment" type="text" sortOrder="1" showInDefault="1"
+                <field id="name" translate="label comment" type="text" sortOrder="2" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Fee Name</label>                 
                 </field>
-                <field id="minimum_order_amount" translate="label comment" type="text" sortOrder="600" showInDefault="1"
+                <field id="customfee_amount" translate="label comment" type="text" sortOrder="3" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Custom Fee Amount</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="minimum_order_amount" translate="label comment" type="text" sortOrder="4" showInDefault="1"
                        showInWebsite="1" showInStore="1">
                     <label>Minimum Order Amount To Display</label>
                     <comment><![CDATA[Greaterthan or equal to]]></comment>
-                    <validate>validate-number validate-zero-or-greater</validate>
-                </field>
-                <field id="customfee_amount" translate="label comment" type="text" sortOrder="700" showInDefault="1"
-                       showInWebsite="1" showInStore="1">
-                    <label>Delivery Signature Amount</label>
                     <validate>validate-number validate-zero-or-greater</validate>
                 </field>
             </group>

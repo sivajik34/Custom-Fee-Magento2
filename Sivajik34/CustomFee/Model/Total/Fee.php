@@ -72,7 +72,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
         if ($enabled && $minimumOrderAmount <= $subtotal && $fee) {
             return [
                 'code' => 'fee',
-                'title' => 'Delivery Sign Fee',
+                'title' => 'Custom Fee',
                 'value' => $fee
             ];
         } else {
@@ -87,7 +87,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     public function getLabel()
     {
-        return __('Delivery Sign Fee');
+        return __('Custom Fee');
     }
 
     /**

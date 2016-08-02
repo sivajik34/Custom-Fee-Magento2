@@ -7,26 +7,26 @@ use Magento\Framework\App\Helper\AbstractHelper;
 class Data extends AbstractHelper
 {
     /**
-     * Delivery sign fee config path
+     * Custom fee config path
      */
-    const CONFIG_DELIVERYSIGN_FEE = 'customfee/customfee/customfee_amount';
-    const CONFIG_DELIVERYSIGN_IS_ENABLED = 'customfee/customfee/status';
+    const CONFIG_CUSTOM_FEE = 'customfee/customfee/customfee_amount';
+    const CONFIG_CUSTOM_IS_ENABLED = 'customfee/customfee/status';
     const CONFIG_MINIMUM_ORDER_AMOUNT = 'customfee/customfee/minimum_order_amount';
     const CONFIG_FEE_LABEL = 'customfee/customfee/name';
     /**
-     * Get delivery sign fee
+     * Get custom fee
      *
      * @return mixed
      */
-    public function getCustomFeeFee()
+    public function getCustomFee()
     {
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-        $fee = $this->scopeConfig->getValue(self::CONFIG_DELIVERYSIGN_FEE, $storeScope);
+        $fee = $this->scopeConfig->getValue(self::CONFIG_CUSTOM_FEE, $storeScope);
         return $fee;
     }
 
     /**
-     * Get delivery sign fee
+     * Get custom fee
      *
      * @return mixed
      */
@@ -54,7 +54,7 @@ class Data extends AbstractHelper
     {
 
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-        $isEnabled = $this->scopeConfig->getValue(self::CONFIG_DELIVERYSIGN_IS_ENABLED, $storeScope);
+        $isEnabled = $this->scopeConfig->getValue(self::CONFIG_CUSTOM_IS_ENABLED, $storeScope);
         return $isEnabled;
     }
 }

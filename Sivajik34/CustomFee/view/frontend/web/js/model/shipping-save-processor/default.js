@@ -40,7 +40,7 @@ define(
                         shipping_method_code: quote.shippingMethod().method_code,
                         shipping_carrier_code: quote.shippingMethod().carrier_code,
                         extension_attributes:{
-                            fee: $('[name="delivery-signature"]').prop("checked")
+                            fee: $('[name="custom-fee"]').prop("checked")
                     
                         }
                     }

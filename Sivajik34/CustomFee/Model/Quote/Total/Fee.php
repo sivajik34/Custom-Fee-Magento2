@@ -90,7 +90,7 @@ class Fee extends \Magento\Quote\Model\Quote\Address\Total\AbstractTotal
      */
     public function getLabel()
     {
-        return __('Delivery Sign Fee1');
+        return __('Custom Fee1');
     }
 
     /**

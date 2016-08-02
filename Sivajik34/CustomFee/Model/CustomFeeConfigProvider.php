@@ -43,15 +43,15 @@ class CustomFeeConfigProvider implements ConfigProviderInterface
      */
     public function getConfig()
     {
-        $deliverySignConfig = [];
+        $customFeeConfig = [];
         $enabled = $this->scopeConfiguration->getValue('customfee/customfee/status', ScopeInterface::SCOPE_STORE);
         $minimumOrderAmount = $this->scopeConfiguration->getValue('customfee/customfee/minimum_order_amount', ScopeInterface::SCOPE_STORE);
-        $deliverySignConfig['fee_label'] = $this->scopeConfiguration->getValue('customfee/customfee/name', ScopeInterface::SCOPE_STORE);
+        $customFeeConfig['fee_label'] = $this->scopeConfiguration->getValue('customfee/customfee/name', ScopeInterface::SCOPE_STORE);
         $quote = $this->checkoutSession->getQuote();
-        $subtotal = $quote->getSubtotal();       
-        $deliverySignConfig['delivery_sign_amount'] = $this->scopeConfiguration->getValue('customfee/customfee/customfee_amount', ScopeInterface::SCOPE_STORE);
-        $deliverySignConfig['show_hide_customfee_block'] = ($enabled && ($minimumOrderAmount <= $subtotal) && $quote->getFee()) ? true : false;
-        $deliverySignConfig['show_hide_customfee_shipblock'] = ($enabled && ($minimumOrderAmount <= $subtotal)) ? true : false;
-        return $deliverySignConfig;
+        $subtotal = $quote->getSubtotal();
+        $customFeeConfig['custom_fee_amount'] = $this->scopeConfiguration->getValue('customfee/customfee/customfee_amount', ScopeInterface::SCOPE_STORE);
+        $customFeeConfig['show_hide_customfee_block'] = ($enabled && ($minimumOrderAmount <= $subtotal) && $quote->getFee()) ? true : false;
+        $customFeeConfig['show_hide_customfee_shipblock'] = ($enabled && ($minimumOrderAmount <= $subtotal)) ? true : false;
+        return $customFeeConfig;
     }
 }
