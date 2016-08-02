@@ -2,14 +2,13 @@
 namespace Sivajik34\CustomFee\Model;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
-use Magento\Store\Model\ScopeInterface;
 
 class CustomFeeConfigProvider implements ConfigProviderInterface
 {
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var \Sivajik34\CustomFee\Helper\Data
      */
-    protected $scopeConfiguration;
+    protected $dataHelper;
 
     /**
      * @var \Magento\Checkout\Model\Session
@@ -22,18 +21,18 @@ class CustomFeeConfigProvider implements ConfigProviderInterface
     protected $logger;
 
     /**
-     * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfiguration
+     * @param \Sivajik34\CustomFee\Helper\Data $dataHelper
      * @param \Magento\Checkout\Model\Session $checkoutSession
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfiguration,
+        \Sivajik34\CustomFee\Helper\Data $dataHelper,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Psr\Log\LoggerInterface $logger
 
     )
     {
-        $this->scopeConfiguration = $scopeConfiguration;
+        $this->dataHelper = $dataHelper;
         $this->checkoutSession = $checkoutSession;
         $this->logger = $logger;
     }
@@ -44,12 +43,12 @@ class CustomFeeConfigProvider implements ConfigProviderInterface
     public function getConfig()
     {
         $customFeeConfig = [];
-        $enabled = $this->scopeConfiguration->getValue('customfee/customfee/status', ScopeInterface::SCOPE_STORE);
-        $minimumOrderAmount = $this->scopeConfiguration->getValue('customfee/customfee/minimum_order_amount', ScopeInterface::SCOPE_STORE);
-        $customFeeConfig['fee_label'] = $this->scopeConfiguration->getValue('customfee/customfee/name', ScopeInterface::SCOPE_STORE);
+        $enabled = $this->dataHelper->isModuleEnabled();
+        $minimumOrderAmount = $this->dataHelper->getMinimumOrderAmount();
+        $customFeeConfig['fee_label'] = $this->dataHelper->getFeeLabel();
         $quote = $this->checkoutSession->getQuote();
         $subtotal = $quote->getSubtotal();
-        $customFeeConfig['custom_fee_amount'] = $this->scopeConfiguration->getValue('customfee/customfee/customfee_amount', ScopeInterface::SCOPE_STORE);
+        $customFeeConfig['custom_fee_amount'] = $this->dataHelper->getCustomFee();
         $customFeeConfig['show_hide_customfee_block'] = ($enabled && ($minimumOrderAmount <= $subtotal) && $quote->getFee()) ? true : false;
         $customFeeConfig['show_hide_customfee_shipblock'] = ($enabled && ($minimumOrderAmount <= $subtotal)) ? true : false;
         return $customFeeConfig;

@@ -9,10 +9,22 @@ class Data extends AbstractHelper
     /**
      * Custom fee config path
      */
-    const CONFIG_CUSTOM_FEE = 'customfee/customfee/customfee_amount';
     const CONFIG_CUSTOM_IS_ENABLED = 'customfee/customfee/status';
-    const CONFIG_MINIMUM_ORDER_AMOUNT = 'customfee/customfee/minimum_order_amount';
+    const CONFIG_CUSTOM_FEE = 'customfee/customfee/customfee_amount';
     const CONFIG_FEE_LABEL = 'customfee/customfee/name';
+    const CONFIG_MINIMUM_ORDER_AMOUNT = 'customfee/customfee/minimum_order_amount';
+
+    /**
+     * @return mixed
+     */
+    public function isModuleEnabled()
+    {
+
+        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+        $isEnabled = $this->scopeConfig->getValue(self::CONFIG_CUSTOM_IS_ENABLED, $storeScope);
+        return $isEnabled;
+    }
+
     /**
      * Get custom fee
      *
@@ -36,6 +48,7 @@ class Data extends AbstractHelper
         $feeLabel = $this->scopeConfig->getValue(self::CONFIG_FEE_LABEL, $storeScope);
         return $feeLabel;
     }
+
     /**
      * @return mixed
      */
@@ -45,16 +58,5 @@ class Data extends AbstractHelper
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
         $MinimumOrderAmount = $this->scopeConfig->getValue(self::CONFIG_MINIMUM_ORDER_AMOUNT, $storeScope);
         return $MinimumOrderAmount;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function isModuleEnabled()
-    {
-
-        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-        $isEnabled = $this->scopeConfig->getValue(self::CONFIG_CUSTOM_IS_ENABLED, $storeScope);
-        return $isEnabled;
     }
 }

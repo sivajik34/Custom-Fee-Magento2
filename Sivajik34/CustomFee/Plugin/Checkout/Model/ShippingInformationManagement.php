@@ -1,22 +1,32 @@
 <?php
 namespace Sivajik34\CustomFee\Plugin\Checkout\Model;
-use Magento\Store\Model\ScopeInterface;
+
+
 class ShippingInformationManagement
 {
+    /**
+     * @var \Magento\Quote\Model\QuoteRepository
+     */
     protected $quoteRepository;
 
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var \Sivajik34\CustomFee\Helper\Data
      */
-    protected $scopeConfiguration;
+    protected $dataHelper;
 
+    /**
+     * @param \Magento\Quote\Model\QuoteRepository $quoteRepository
+     * @param \Sivajik34\CustomFee\Helper\Data $dataHelper
+     */
     public function __construct(
         \Magento\Quote\Model\QuoteRepository $quoteRepository,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfiguration
-    ) {
+        \Sivajik34\CustomFee\Helper\Data $dataHelper
+    )
+    {
         $this->quoteRepository = $quoteRepository;
-        $this->scopeConfiguration = $scopeConfiguration;
+        $this->dataHelper = $dataHelper;
     }
+
     /**
      * @param \Magento\Checkout\Model\ShippingInformationManagement $subject
      * @param $cartId
@@ -26,16 +36,16 @@ class ShippingInformationManagement
         \Magento\Checkout\Model\ShippingInformationManagement $subject,
         $cartId,
         \Magento\Checkout\Api\Data\ShippingInformationInterface $addressInformation
-    ) {
-        $extAttributes = $addressInformation->getExtensionAttributes();
-        $customFee = $extAttributes->getFee();
+    )
+    {
+        $customFee = $addressInformation->getExtensionAttributes()->getFee();
         $quote = $this->quoteRepository->getActive($cartId);
-        if($customFee){
-        $fee = $this->scopeConfiguration->getValue('customfee/customfee/customfee_amount', ScopeInterface::SCOPE_STORE);
-        $quote->setFee($fee);
-        } else{
-          $quote->setFee(NULL);
-       }       
+        if ($customFee) {
+            $fee = $this->dataHelper->getCustomFee();
+            $quote->setFee($fee);
+        } else {
+            $quote->setFee(NULL);
+        }
     }
 }
 

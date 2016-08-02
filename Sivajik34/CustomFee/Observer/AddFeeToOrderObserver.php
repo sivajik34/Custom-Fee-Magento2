@@ -7,22 +7,6 @@ use Magento\Framework\Event\ObserverInterface;
 class AddFeeToOrderObserver implements ObserverInterface
 {
     /**
-     * @var \Magento\Checkout\Model\Session
-     */
-    protected $_checkoutSession;
-   
-    /**
-     * AddFeeToOrderObserver constructor.
-     * @param \Magento\Checkout\Model\Session $checkoutSession
-     */
-    public function __construct(
-        \Magento\Checkout\Model\Session $checkoutSession
-    )
-    {
-        $this->_checkoutSession = $checkoutSession;
-    }
-
-    /**
      * Set payment fee to order
      *
      * @param EventObserver $observer
@@ -33,7 +17,7 @@ class AddFeeToOrderObserver implements ObserverInterface
         $quote = $observer->getQuote();
         $CustomFeeFee = $quote->getFee();
         $CustomFeeBaseFee = $quote->getBaseFee();
-        if(!$CustomFeeFee || !$CustomFeeBaseFee) {
+        if (!$CustomFeeFee || !$CustomFeeBaseFee) {
             return $this;
         }
         //Set fee data to order
